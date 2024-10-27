@@ -1,0 +1,52 @@
+echo "# project1" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/codingprojects-ui/project1.git
+git push -u origin main
+
+git clone <your-repo-URL>
+cd Financial-Data-Analysis-Dashboard
+pip install yfinance matplotlib pandas plotly
+import yfinance as yf
+import pandas as pd
+
+def get_stock_data(ticker, start_date, end_date):
+    stock_data = yf.download(ticker, start=start_date, end=end_date)
+    return stock_data
+
+def calculate_moving_averages(data, window=20):
+    data['Moving Average'] = data['Close'].rolling(window=window).mean()
+    return data
+
+import matplotlib.pyplot as plt
+
+def plot_stock_data(data, ticker):
+    plt.figure(figsize=(10, 5))
+    plt.plot(data.index, data['Close'], label='Close Price')
+    plt.plot(data.index, data['Moving Average'], label='Moving Average')
+    plt.title(f'{ticker} Stock Price')
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    plt.legend()
+    plt.show()
+
+if __name__ == "__main__":
+    ticker = input("Enter stock ticker: ")
+    start_date = input("Enter start date (YYYY-MM-DD): ")
+    end_date = input("Enter end date (YYYY-MM-DD): ")
+
+    data = get_stock_data(ticker, start_date, end_date)
+    data = calculate_moving_averages(data)
+    plot_stock_data(data, ticker)
+
+
+git add .
+
+git commit -m "Initial commit with dashboard code and README"
+
+git push origin main
+
+
+
